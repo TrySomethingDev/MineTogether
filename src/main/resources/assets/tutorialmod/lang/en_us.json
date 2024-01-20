@@ -1,0 +1,17 @@
+{
+  "item.tutorialmod.ruby": "Ruby",
+  "item.tutorialmod.onyx": "Onyx",
+  "item.tutorialmod.pea": "Pea",
+  "item.tutorialmod.metal_detector": "Metal Detector",
+  "item.tutorialmod.tomato": "Tomato",
+  "item.tutorialmod.coal_briquette": "Coal Briquette",
+
+  "block.tutorialmod.ruby_block": "Block of Ruby",
+  "block.tutorialmod.trysomethingdev_block": "Block of TrySomethingDev",
+
+  "block.tutorialmod.sound_block": "Sound Block",
+
+  "itemgroup.ruby": "Ruby Tutorial Group",
+  "itemgroup.onyx": "Onyx Tutorial Group",
+  "itemgroup.pea": "Pea Tutorial Group"
+}
