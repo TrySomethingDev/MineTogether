@@ -1,8 +1,9 @@
 import tmi, { Client, ChatUserstate } from "tmi.js";
 import yaml from "js-yaml";
 import fs from "node:fs";
+import { CommandBase } from "./commandBase";
 
-const PATH =
+export const PATH =
   "C:\\Files\\Servers\\PaperServerDev1\\plugins\\TrySomethingDevAmazingPlugin\\config.yml";
 const ADMIN_NAME = "TrySomethingDev";
 
@@ -17,6 +18,9 @@ const opts = {
 
 // Create a client with our options
 const client = new tmi.client(opts);
+export type ClientType = Client;
+
+export const commandBase = new CommandBase(client);
 
 // Connect to Twitch:
 client.connect();
@@ -35,22 +39,17 @@ const onMessageHandler: MessageHandler = (
   if (self) return; // Ignore messages from the bot
 
   // Remove whitespace from chat message
-  const commandName = msg.trim();
+  const commandName = msg.trim().toLowerCase();
+
+  const commandExists = commandBase.findCommand(commandName);
+  if (!commandExists) return;
+
+  commandBase.runCommand(commandName, [msg]);
 
   if (
     commandName.toUpperCase() === "!MINECLEAR" &&
     context["display-name"] === ADMIN_NAME
   ) {
-    let doc = yaml.load(fs.readFileSync(PATH, "utf8"));
-    doc.ChattersThatWantToPlay = [];
-    doc.General.Greeting = msg;
-    fs.writeFile(PATH, yaml.dump(doc), (err) => {
-      if (err) {
-        console.log(err);
-      }
-
-      client.say(target, `Cleared Miner List`);
-    });
   }
 
   // If the command is known, let's execute it

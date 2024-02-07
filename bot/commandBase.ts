@@ -1,13 +1,30 @@
+import { ChatUserstate } from "tmi.js";
+import type { ClientType } from "./bot";
+
 export class CommandBase {
+  public client = {} as ClientType;
   private commands = new Map<
     string,
     {
       command: string;
-      callback: (args: string[]) => void;
+      callback: (
+        client: ClientType,
+        context: ChatUserstate,
+        args: string[],
+      ) => void;
     }
   >();
-  constructor() {}
-  registerCommand(command: string, callback: (args: string[]) => void) {
+  constructor(client: ClientType) {
+    this.client = client;
+  }
+  registerCommand(
+    command: string,
+    callback: (
+      client: ClientType,
+      context: ChatUserstate,
+      args: string[],
+    ) => void,
+  ) {
     this.commands.set(command, {
       command,
       callback,
@@ -16,10 +33,18 @@ export class CommandBase {
   get commandList() {
     return this.commands;
   }
-  runCommand(command: string, args: string[]) {
+  runCommand(
+    command: string,
+    client: ClientType,
+    context: ChatUserstate,
+    args: string[],
+  ) {
     const cmd = this.commands.get(command);
     if (cmd) {
-      cmd.callback(args);
+      cmd.callback(client, args);
     }
+  }
+  findCommand(command: string) {
+    return this.commands.get(command);
   }
 }
