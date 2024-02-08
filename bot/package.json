@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "bun bot.ts",
+    "start:ts-node": "ts-node bot.ts"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +15,7 @@
     "tmi.js": "^1.8.5"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.11.16",
     "@types/tmi.js": "^1.8.6"
   }
