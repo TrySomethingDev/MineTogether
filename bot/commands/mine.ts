@@ -1,27 +1,27 @@
-import { channelName, commandBase } from "../bot";
+import { PATH, channelName, commandBase } from "../bot";
 import fs from "node:fs";
 import yaml from "js-yaml";
 
 commandBase.registerCommand("mine", (client, context, args) => {
-  //Add name of sender to ""
+  if (!context["display-name"]) return;
 
-  let doc = yaml.load(fs.readFileSync(PATH, "utf8"));
-  if (doc.ChattersThatWantToPlay.includes(context["display-name"])) {
-    client.say(
-      channelName,
-      context["display-name"] + `, your name is already on the list`,
-    );
-  } else {
+  const doc = yaml.load(fs.readFileSync(PATH, "utf8")) as {
+    ChattersThatWantToPlay: string[];
+  };
+  if (!doc.ChattersThatWantToPlay.includes(context["display-name"])) {
     doc.ChattersThatWantToPlay.push(context["display-name"]);
-    doc.General.Greeting = msg;
-    fs.writeFile(PATH, yaml.dump(doc), (err) => {
+    return fs.writeFile(PATH, yaml.dump(doc), (err) => {
       if (err) {
         console.log(err);
       }
       client.say(
-        target,
+        channelName,
         context["display-name"] + `, your name has been added to the list.`,
       );
     });
   }
+  return client.say(
+    channelName,
+    context["display-name"] + `, your name is already on the list`,
+  );
 });

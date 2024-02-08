@@ -22,6 +22,10 @@ export class CommandBase {
     callback: (
       client: ClientType,
       context: ChatUserstate,
+      /**
+       * @param args - The arguments passed to the command
+       * This is just the message split by spaces
+       */
       args: string[],
     ) => void,
   ) {

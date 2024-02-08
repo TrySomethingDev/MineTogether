@@ -13,6 +13,7 @@
     "tmi.js": "^1.8.5"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.11.16",
     "@types/tmi.js": "^1.8.6"
   }
