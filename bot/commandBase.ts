@@ -45,7 +45,7 @@ export class CommandBase {
   ) {
     const cmd = this.commands.get(command);
     if (cmd) {
-      cmd.callback(client, args);
+      cmd.callback(client, context, args);
     }
   }
   findCommand(command: string) {

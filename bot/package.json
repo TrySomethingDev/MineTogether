@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "tmi.js": "^1.8.5"
+    "tmi.js": "^1.8.5",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
