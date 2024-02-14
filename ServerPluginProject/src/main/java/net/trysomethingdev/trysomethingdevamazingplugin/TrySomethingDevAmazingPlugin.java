@@ -2,6 +2,7 @@ package net.trysomethingdev.trysomethingdevamazingplugin;
 
 import net.trysomethingdev.trysomethingdevamazingplugin.commands.TutorialCommands;
 import net.trysomethingdev.trysomethingdevamazingplugin.handlers.ChestHandler;
+import net.trysomethingdev.trysomethingdevamazingplugin.handlers.FishingHandler;
 import net.trysomethingdev.trysomethingdevamazingplugin.handlers.TorchHandler;
 import net.trysomethingdev.trysomethingdevamazingplugin.minetogethermode.MineTogetherModeManager;
 import net.trysomethingdev.trysomethingdevamazingplugin.minetogethermode.items.ItemManager;
@@ -22,8 +23,10 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
 
+
+
         //PUT YOUR MINECRAFT USERNAME HERE
-        String yourMineCraftPlayerName = "<MinecraftUserNameGoesHere>";
+        String yourMineCraftPlayerName = "TrySomethingDev";
         saveDefaultConfig();
         var mineTogetherModeManager = new MineTogetherModeManager(this,yourMineCraftPlayerName);
         new ChestHandler(this, mineTogetherModeManager);
@@ -31,6 +34,10 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
         new DelayedTask(this);
         ItemManager.init(this);
         getCommand("givechest").setExecutor(new TutorialCommands());
+
+        //Fish Together Mode Code Below this point
+        new FishingHandler(this, mineTogetherModeManager);
+
 
     }
 
