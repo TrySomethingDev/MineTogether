@@ -1,0 +1,10 @@
+name: TrySomethingDevAmazingPlugin
+version: '${version}'
+main: net.trysomethingdev.trysomethingdevamazingplugin.TrySomethingDevAmazingPlugin
+api-version: '1.20'
+commands:
+  givechest:
+    description: gives a MTM chest to player
+    aliases:
+      - mtmc
+    usage: /<command>
