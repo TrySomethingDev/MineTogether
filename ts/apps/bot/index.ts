@@ -71,7 +71,7 @@ const onMessageHandler: MessageHandler = async (
 
   console.log("list", commandBase.commandList);
 
-  const commandExists = commandBase.findCommand(commandName);
+  const commandExists = commandBase.findCommand("!" + commandName);
   if (!commandExists) return;
 
   commandBase.runCommand(commandName, {
