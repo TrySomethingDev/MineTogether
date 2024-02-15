@@ -67,11 +67,14 @@ const onMessageHandler: MessageHandler = async (
   }
 
   // Remove whitespace from chat message
-  const commandName = msg.trim().toLowerCase();
+  let commandName = msg.trim().toLowerCase();
 
   console.log("list", commandBase.commandList);
 
-  const commandExists = commandBase.findCommand("!" + commandName);
+  if(!commandName.startsWith("!")) return;
+  commandName = commandName.replace("!", "");
+
+  const commandExists = commandBase.findCommand(commandName);
   if (!commandExists) return;
 
   commandBase.runCommand(commandName, {
