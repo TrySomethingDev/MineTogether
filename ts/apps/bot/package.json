@@ -7,9 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup index.ts --config tsup.config.ts",
-    "build:watch": "tsup index.ts --watch --config tsup.config.ts",
+    "build:watch": "tsup index.ts --config tsup.config.ts --onSuccess \"node dist/index.cjs\"",
     "db:push": "cd ../../packages/db && pnpm run db:push",
-    "start": "pnpm build && npm-run-all --parallel build:watch start:bot",
+    "start": "pnpm build:watch",
     "start:bot": "node dist/index.cjs --watch"
   },
   "author": "",
