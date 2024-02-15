@@ -2,16 +2,20 @@ import tmi, { Client, ChatUserstate } from "tmi.js";
 import { CommandBase } from "./commandBase";
 import { db, schema } from "@packages/db";
 import { eq } from "drizzle-orm";
+import fs from "node:fs";
 
 export const PATH =
   "C:\\Files\\Servers\\PaperServerDev1\\plugins\\TrySomethingDevAmazingPlugin\\config.yml";
 export const ADMIN_NAME = "TrySomethingDev";
+const identityToken = JSON.parse(
+  fs.readFileSync("../../config.json", "utf-8"),
+).token;
 
 // Define configuration options
 const opts = {
   identity: {
     username: "trysomethingdev",
-    password: "OATH TOKEN HERE",
+    password: identityToken,
   },
   channels: ["trysomethingdev"],
 } satisfies {

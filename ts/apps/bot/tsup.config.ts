@@ -5,4 +5,5 @@ export default defineConfig({
   skipNodeModulesBundle: true,
   tsconfig: "tsconfig.json",
   noExternal: ["@packages/db"],
+  clean: true,
 });
