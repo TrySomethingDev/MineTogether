@@ -1,6 +1,7 @@
 import { db, schema } from "@packages/db";
-import { channelName, commandBase } from "..";
+import { channelName } from "../";
 import { eq } from "drizzle-orm";
+import { commandBase } from "../commandBase";
 
 commandBase.registerCommand(
   "startfishing",

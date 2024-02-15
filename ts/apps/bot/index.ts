@@ -1,5 +1,5 @@
 import tmi, { Client, ChatUserstate } from "tmi.js";
-import { CommandBase } from "./commandBase";
+import { CommandBase, commandBase } from "./commandBase";
 import { db, schema } from "@packages/db";
 import { eq } from "drizzle-orm";
 import fs from "node:fs";
@@ -29,15 +29,15 @@ const opts = {
 export const channelName = opts.channels[0] as string;
 
 // Create a client with our options
-const client = new tmi.client(opts);
+export const client = new tmi.client(opts);
 client.connect();
 export type ClientType = Client;
-
-export const commandBase = new CommandBase(client);
 
 export interface MessageHandler {
   (channel: string, context: ChatUserstate, msg: string, self: boolean): void;
 }
+
+import "./commands/startfishing";
 
 // Called every time a message comes in
 const onMessageHandler: MessageHandler = async (
@@ -69,6 +69,8 @@ const onMessageHandler: MessageHandler = async (
 
   // Remove whitespace from chat message
   const commandName = msg.trim().toLowerCase();
+
+  console.log("list", commandBase.commandList);
 
   const commandExists = commandBase.findCommand(commandName);
   if (!commandExists) return;
