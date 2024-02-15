@@ -17,8 +17,5 @@
     "node": ">=18"
   },
   "packageManager": "bun@1.0.26",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "workspaces": ["apps/*", "packages/*"]
 }

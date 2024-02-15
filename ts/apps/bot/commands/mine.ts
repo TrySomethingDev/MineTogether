@@ -1,8 +1,8 @@
-import { PATH, channelName, commandBase } from "../bot";
+import { PATH, channelName, commandBase } from "../index";
 import fs from "node:fs";
 import yaml from "js-yaml";
 
-commandBase.registerCommand("mine", (client, context, args) => {
+commandBase.registerCommand("mine", ({ client, context, user }) => {
   if (!context["display-name"]) return;
 
   const doc = yaml.load(fs.readFileSync(PATH, "utf8")) as {

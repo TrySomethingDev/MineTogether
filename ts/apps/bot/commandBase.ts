@@ -1,5 +1,13 @@
 import { ChatUserstate } from "tmi.js";
-import type { ClientType } from "./bot";
+import type { ClientType } from "./index";
+import { schema } from "@packages/db/src/schema";
+
+type CommandData = {
+  client: ClientType;
+  context: ChatUserstate;
+  args: string[];
+  user: typeof schema.users.$inferSelect;
+};
 
 export class CommandBase {
   public client = {} as ClientType;
@@ -7,28 +15,13 @@ export class CommandBase {
     string,
     {
       command: string;
-      callback: (
-        client: ClientType,
-        context: ChatUserstate,
-        args: string[],
-      ) => void;
+      callback: (data: CommandData) => void;
     }
   >();
   constructor(client: ClientType) {
     this.client = client;
   }
-  registerCommand(
-    command: string,
-    callback: (
-      client: ClientType,
-      context: ChatUserstate,
-      /**
-       * @param args - The arguments passed to the command
-       * This is just the message split by spaces
-       */
-      args: string[],
-    ) => void,
-  ) {
+  registerCommand(command: string, callback: (data: CommandData) => void) {
     this.commands.set(command, {
       command,
       callback,
@@ -37,15 +30,10 @@ export class CommandBase {
   get commandList() {
     return this.commands;
   }
-  runCommand(
-    command: string,
-    client: ClientType,
-    context: ChatUserstate,
-    args: string[],
-  ) {
+  runCommand(command: string, data: CommandData) {
     const cmd = this.commands.get(command);
     if (cmd) {
-      cmd.callback(client, args);
+      cmd.callback(data);
     }
   }
   findCommand(command: string) {

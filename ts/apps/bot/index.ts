@@ -1,5 +1,7 @@
 import tmi, { Client, ChatUserstate } from "tmi.js";
 import { CommandBase } from "./commandBase";
+import { db, schema } from "@packages/db";
+import { eq } from "drizzle-orm";
 
 export const PATH =
   "C:\\Files\\Servers\\PaperServerDev1\\plugins\\TrySomethingDevAmazingPlugin\\config.yml";
@@ -34,13 +36,32 @@ export interface MessageHandler {
 }
 
 // Called every time a message comes in
-const onMessageHandler: MessageHandler = (
+const onMessageHandler: MessageHandler = async (
   channel,
   context,
   msg,
   self,
 ): void => {
   if (self) return; // Ignore messages from the bot
+  if (!context.id || !context.username) return;
+
+  const userExists = await db.query.users.findFirst({
+    where: eq(schema.users.id, context.id),
+  });
+
+  if (!userExists) {
+    await db.insert(schema.users).values({
+      id: context.id,
+      name: context.username,
+    });
+  } else if (userExists.name !== context.username) {
+    await db
+      .update(schema.users)
+      .set({
+        name: context.username,
+      })
+      .where(eq(schema.users.id, context.id));
+  }
 
   // Remove whitespace from chat message
   const commandName = msg.trim().toLowerCase();
@@ -48,7 +69,17 @@ const onMessageHandler: MessageHandler = (
   const commandExists = commandBase.findCommand(commandName);
   if (!commandExists) return;
 
-  commandBase.runCommand(commandName, client, context, msg.split(" "));
+  commandBase.runCommand(commandName, {
+    client,
+    context,
+    args: msg.split(" "),
+    user: {
+      id: context.id,
+      name: context.username,
+      minecraftName: userExists?.minecraftName ?? null,
+      minecraftUUID: userExists?.minecraftUUID ?? null,
+    },
+  });
 
   console.log(`* Executed ${commandName} command`);
 };
