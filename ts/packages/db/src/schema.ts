@@ -1,14 +1,14 @@
 import { sql } from "drizzle-orm";
 import { text, integer, sqliteTable } from "drizzle-orm/sqlite-core";
 
-const users = sqliteTable("users", {
+export const users = sqliteTable("users", {
   id: text("id").notNull().primaryKey(),
   name: text("name").notNull(),
   minecraftName: text("minecraft_username"),
   minecraftUUID: text("minecraft_uuid"),
 });
 
-const fishingSpots = sqliteTable("fishing_spots", {
+export const fishingSpots = sqliteTable("fishing_spots", {
   // random id
   id: integer("id").notNull().primaryKey(),
   locationX: integer("location_x").notNull(),
@@ -24,8 +24,3 @@ const fishingSpots = sqliteTable("fishing_spots", {
     .default(false),
   occupantId: text("occupant_id").references(() => users.id),
 });
-
-export const schema = {
-  users,
-  fishingSpots,
-} as const;
