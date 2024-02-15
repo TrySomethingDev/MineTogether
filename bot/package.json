@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.11.16",
-    "@types/tmi.js": "^1.8.6"
+    "@types/tmi.js": "^1.8.6",
+    "ts-node": "^10.9.2"
   }
 }
