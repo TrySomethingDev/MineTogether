@@ -41,7 +41,7 @@ const onMessageHandler: MessageHandler = async (
   context,
   msg,
   self,
-): void => {
+) => {
   if (self) return; // Ignore messages from the bot
   if (!context.id || !context.username) return;
 
