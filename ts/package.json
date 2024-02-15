@@ -5,7 +5,8 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "start": "turbo start --filter=bot"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -16,6 +17,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "bun@1.0.26",
   "workspaces": ["apps/*", "packages/*"]
 }

@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "bun index.ts",
-    "start:ts-node": "ts-node index.ts"
+    "build": "tsup index.ts --config tsup.config.ts",
+    "build:watch": "tsup index.ts --watch --config tsup.config.ts",
+    "start": "rm -rf dist && pnpm build && npm-run-all --parallel build:watch start:bot",
+    "start:bot": "node dist/index.cjs --watch"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +23,8 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.11.16",
     "@types/tmi.js": "^1.8.6",
-    "ts-node": "^10.9.2"
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.2"
   }
 }
