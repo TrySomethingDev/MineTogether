@@ -3,6 +3,7 @@ import { CommandBase, commandBase } from "./commandBase";
 import { db, schema } from "@packages/db";
 import { eq } from "drizzle-orm";
 import fs from "node:fs";
+import "./commands/startfishing";
 
 export const PATH =
   "C:\\Files\\Servers\\PaperServerDev1\\plugins\\TrySomethingDevAmazingPlugin\\config.yml";
@@ -36,8 +37,6 @@ export type ClientType = Client;
 export interface MessageHandler {
   (channel: string, context: ChatUserstate, msg: string, self: boolean): void;
 }
-
-import "./commands/startfishing";
 
 // Called every time a message comes in
 const onMessageHandler: MessageHandler = async (
