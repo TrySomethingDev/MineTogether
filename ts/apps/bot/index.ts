@@ -3,7 +3,10 @@ import { CommandBase, commandBase } from "./commandBase";
 import { db, schema } from "@packages/db";
 import { eq } from "drizzle-orm";
 import fs from "node:fs";
+
+//Remember to add new commands to this list of imports
 import "./commands/startfishing";
+import "./commands/stopfishing";
 
 export const PATH =
   "C:\\Files\\Servers\\PaperServerDev1\\plugins\\TrySomethingDevAmazingPlugin\\config.yml";
