@@ -47,15 +47,15 @@ const onMessageHandler: MessageHandler = async (
   self,
 ) => {
   if (self) return; // Ignore messages from the bot
-  if (!context.id || !context.username) return;
+  if (!context["user-id"] || !context.username) return;
 
   const userExists = await db.query.users.findFirst({
-    where: eq(schema.users.id, context.id),
+    where: eq(schema.users.id, context["user-id"]),
   });
 
   if (!userExists) {
     await db.insert(schema.users).values({
-      id: context.id,
+      id: context["user-id"],
       name: context.username,
     });
   } else if (userExists.name !== context.username) {
@@ -64,7 +64,7 @@ const onMessageHandler: MessageHandler = async (
       .set({
         name: context.username,
       })
-      .where(eq(schema.users.id, context.id));
+      .where(eq(schema.users.id, context["user-id"]));
   }
 
   // Remove whitespace from chat message
@@ -78,7 +78,7 @@ const onMessageHandler: MessageHandler = async (
     context,
     args: msg.split(" "),
     user: {
-      id: context.id,
+      id: context["user-id"],
       name: context.username,
       minecraftName: userExists?.minecraftName ?? null,
       minecraftUUID: userExists?.minecraftUUID ?? null,
