@@ -1,5 +1,5 @@
 import { ChatUserstate } from "tmi.js";
-import type { ClientType } from "./index";
+import { client, type ClientType } from "./index";
 import { schema } from "@packages/db/src/schema";
 
 type CommandData = {
@@ -40,3 +40,5 @@ export class CommandBase {
     return this.commands.get(command);
   }
 }
+
+export const commandBase = new CommandBase(client);
