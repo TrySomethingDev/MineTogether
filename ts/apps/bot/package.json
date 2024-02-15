@@ -1,0 +1,26 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "bun index.ts",
+    "start:ts-node": "ts-node index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@packages/db": "workspace:*",
+    "drizzle-orm": "^0.29.3",
+    "js-yaml": "^4.1.0",
+    "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.11.16",
+    "@types/tmi.js": "^1.8.6",
+    "ts-node": "^10.9.2"
+  }
+}
