@@ -10,7 +10,7 @@ export const users = sqliteTable("users", {
 
 export const fishingSpots = sqliteTable("fishing_spots", {
   // random id
-  id: integer("id").notNull().primaryKey(),
+  id: text("id").notNull().primaryKey(),
   locationX: integer("location_x").notNull(),
   locationY: integer("location_y").notNull(),
   locationZ: integer("location_z").notNull(),

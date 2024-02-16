@@ -13,8 +13,10 @@
   "dependencies": {
     "@bogeychan/elysia-polyfills": "^0.6.4",
     "@elysiajs/swagger": "^0.8.5",
+    "@packages/db": "workspace:^",
     "@sinclair/typebox": "^0.32.14",
-    "elysia": "^0.8.17"
+    "elysia": "^0.8.17",
+    "nanoid": "^5.0.5"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
