@@ -1,5 +1,5 @@
 import { Elysia, t } from "elysia";
-import { Type, type Static } from "@sinclair/typebox";
+import { Type, type Static, TSchema } from "@sinclair/typebox";
 import { db, schema as dbSchema } from "@packages/db";
 import { nanoid } from "nanoid";
 import { eq } from "drizzle-orm";
@@ -9,6 +9,9 @@ const StringEnum = <T extends string[]>(values: [...T]) =>
     type: "string",
     enum: values,
   });
+
+const Nullable = <T extends TSchema>(schema: T) =>
+  Type.Union([schema, Type.Null()]);
 
 const facingEnum = {
   north: "north",
@@ -20,7 +23,7 @@ const facingEnum = {
 type FacingEnum = "north" | "south" | "east" | "west";
 
 const schema = Type.Object({
-  facing: Type.String({ enum: facingEnum }),
+  facing: Type.String({ enum: facingEnum, default: "north" }),
   location: Type.Object({
     x: Type.Integer(),
     y: Type.Integer(),
@@ -73,6 +76,21 @@ export const fishing = new Elysia({ prefix: "/fishing" })
       }),
     },
   )
-  .get("/getSpawnPoints", () => {
-    return db.query.fishingSpots.findMany();
-  });
+  .get(
+    "/getSpawnPoints",
+    () => {
+      return db.query.fishingSpots.findMany();
+    },
+    {
+      response: Type.Array(
+        Type.Object({
+          id: Type.String(),
+          isOccupied: Type.Boolean({ default: false }),
+          occupantId: Nullable(Type.String()),
+          locationX: Type.Integer(),
+          locationY: Type.Integer(),
+          locationZ: Type.Integer(),
+        }),
+      ),
+    },
+  );
