@@ -64,6 +64,7 @@ export const fishing = new Elysia({ prefix: "/fishing" })
 
       return {
         status: "success",
+        deletedId: body.id,
       };
     },
     {
