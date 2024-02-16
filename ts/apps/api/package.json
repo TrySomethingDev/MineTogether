@@ -1,0 +1,23 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx --watch src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bogeychan/elysia-polyfills": "^0.6.4",
+    "@elysiajs/swagger": "^0.8.5",
+    "@sinclair/typebox": "^0.32.14",
+    "elysia": "^0.8.17"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "tsx": "^4.7.1"
+  }
+}
