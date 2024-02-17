@@ -7,5 +7,10 @@ import { swagger } from "@elysiajs/swagger";
 new Elysia()
   .use(fishing)
   .use(swagger())
-  .get("/", () => "Hello Elysia")
+  .get("/", () => {
+    return {
+      "swagger (api docs)": "/swagger",
+      fishing: "/fishing",
+    };
+  })
   .listen(3000);
