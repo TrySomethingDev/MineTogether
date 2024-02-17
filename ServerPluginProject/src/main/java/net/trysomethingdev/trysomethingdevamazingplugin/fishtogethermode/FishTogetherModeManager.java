@@ -31,17 +31,18 @@ public class FishTogetherModeManager {
         Bukkit.getLogger().info("A Fishing Station has been placed");
         Bukkit.dispatchCommand(Bukkit.getPlayer("TrySomethingDev"),"say hello from fishTogetherManager!");
 
-        double x = 0;
-        double y = 64;
-        double z = 5;
-        String facing = "north";
+        var location = chest.getLocation();
+        double x = location.getX();
+        double y = location.getY();
+        double z = location.getZ();
+        String facing = GetChestFacingDirection();
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(_baseUrl + "/fishing/createSpawnPoint"))
                     .header("Content-Type", "application/json")
                     .method("POST",
-                            HttpRequest.BodyPublishers.ofString("{\n  \"location\": {\n    \"x\": "+ x + ",\n    \"y\": "+ y + ",\n    \"z\": "+ z+ ",\n facing: "+ facing +"  \n  }\n}"))
+                            HttpRequest.BodyPublishers.ofString("{\n  \"location\": {\n    \"x\": "+ x + ",\n    \"y\": "+ y + ",\n    \"z\": "+ z+ "\n  },\n \"facing\": \""+ facing +"\"   \n}"))
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
@@ -56,6 +57,10 @@ public class FishTogetherModeManager {
             System.err.println("An error occurred while making the HTTP request: " + e.getMessage());
         }
 
+    }
+
+    private String GetChestFacingDirection() {
+        return "east";
     }
 
     public void OnFishingStationRemoved(Chest chest) {
