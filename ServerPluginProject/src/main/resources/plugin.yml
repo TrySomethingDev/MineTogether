@@ -8,3 +8,8 @@ commands:
     aliases:
       - mtmc
     usage: /<command>
+  givefishstation:
+   description: gives a fish station to player
+   aliases:
+     - ftms
+   usage: /<command>

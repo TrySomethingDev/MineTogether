@@ -1,6 +1,6 @@
 package net.trysomethingdev.trysomethingdevamazingplugin.commands;
 
-import net.trysomethingdev.trysomethingdevamazingplugin.minetogethermode.items.ItemManager;
+import net.trysomethingdev.trysomethingdevamazingplugin.TrySomethingDevAmazingPlugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,6 +18,10 @@ public class TutorialCommands implements CommandExecutor {
         Player player = (Player) commandSender;
         if (command.getName().equalsIgnoreCase("givechest")){
             player.getInventory().addItem(ItemManager.chest);
+        }
+
+        if (command.getName().equalsIgnoreCase("givefishstation")){
+            player.getInventory().addItem(net.trysomethingdev.trysomethingdevamazingplugin.fishtogethermode.items.ItemManager.chest);
         }
 
         return true;
