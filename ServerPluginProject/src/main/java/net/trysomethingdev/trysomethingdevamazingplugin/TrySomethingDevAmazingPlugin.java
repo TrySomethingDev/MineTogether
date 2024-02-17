@@ -1,9 +1,15 @@
 package net.trysomethingdev.trysomethingdevamazingplugin;
 
+import com.denizenscript.denizen.scripts.commands.BukkitCommandRegistry;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.trait.TraitInfo;
 import net.trysomethingdev.trysomethingdevamazingplugin.commands.TutorialCommands;
+import net.trysomethingdev.trysomethingdevamazingplugin.denizen.FishTogetherCommand;
+import net.trysomethingdev.trysomethingdevamazingplugin.denizen.FishTogetherTrait;
 import net.trysomethingdev.trysomethingdevamazingplugin.fishtogethermode.FishTogetherModeManager;
 import net.trysomethingdev.trysomethingdevamazingplugin.handlers.BlockBreakHandler;
 import net.trysomethingdev.trysomethingdevamazingplugin.handlers.ChestHandler;
+import net.trysomethingdev.trysomethingdevamazingplugin.handlers.NpcFishHandler;
 import net.trysomethingdev.trysomethingdevamazingplugin.minetogethermode.MineTogetherModeManager;
 import net.trysomethingdev.trysomethingdevamazingplugin.util.DelayedTask;
 import org.bukkit.Bukkit;
@@ -42,6 +48,13 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         Bukkit.getLogger().info("Starting TrySomethingDev Pluggin");
+
+        //AresNote: Register trait with CitizensAPI
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(FishTogetherTrait.class).withName("fishtogether"));
+
+        // AresNote: Register the command which needs com.denizenscript.denizencore.scripts.commands.AbstractCommand;
+        BukkitCommandRegistry.registerCommand(FishTogetherCommand.class);
+
         // Plugin startup logic
         //PUT YOUR MINECRAFT USERNAME HERE
         String yourMineCraftPlayerName = "TrySomethingDev";
@@ -57,6 +70,9 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
 
         new ChestHandler(this,mineTogetherModeManager,fishTogetherModeManager);
         new BlockBreakHandler(this,mineTogetherModeManager,fishTogetherModeManager);
+
+        // AresNote: Registered it the old-fashioned way.
+        getServer().getPluginManager().registerEvents(new NpcFishHandler(), this);
 
         net.trysomethingdev.trysomethingdevamazingplugin.fishtogethermode.items.ItemManager.init(this);
         net.trysomethingdev.trysomethingdevamazingplugin.minetogethermode.items.ItemManager.init(this);
