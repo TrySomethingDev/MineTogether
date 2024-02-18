@@ -38,9 +38,9 @@ export const fishing = new Elysia({ prefix: "/fishing" })
     "/createSpawnPoint",
     async ({ body }: { body: Schema }) => {
       const data = {
-        locationX: 2,
-        locationY: 2,
-        locationZ: 2,
+        locationX: body.location.x,
+        locationY: body.location.y,
+        locationZ: body.location.z,
         facing: body.facing as FacingEnum,
         isOccupied: false,
         occupantId: null,
