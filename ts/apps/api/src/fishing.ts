@@ -93,4 +93,20 @@ export const fishing = new Elysia({ prefix: "/fishing" })
         }),
       ),
     },
+  )
+  .get(
+    "/users",
+    () => {
+      return db.query.users.findMany();
+    },
+    {
+      response: Type.Array(
+        Type.Object({
+          id: Type.String(),
+          name: Type.String(),
+          minecraftName: Nullable(Type.String()),
+          minecraftUUID: Nullable(Type.String()),
+        }),
+      ),
+    },
   );
