@@ -26,5 +26,8 @@ export const fishingSpots = sqliteTable("fishing_spots", {
 });
 
 export const fishingSpotsRelation = relations(fishingSpots, ({ one }) => ({
-  user: one(users),
+  user: one(users, {
+    fields: [fishingSpots.occupantId],
+    references: [users.id],
+  }),
 }));
