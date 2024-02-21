@@ -94,6 +94,14 @@ export const fishing = new Elysia({ prefix: "/fishing" })
           locationX: Type.Integer(),
           locationY: Type.Integer(),
           locationZ: Type.Integer(),
+          user: Nullable(
+            Type.Object({
+              id: Type.String(),
+              name: Type.String(),
+              minecraftName: Nullable(Type.String()),
+              minecraftUUID: Nullable(Type.String()),
+            }),
+          ),
         }),
       ),
     },
