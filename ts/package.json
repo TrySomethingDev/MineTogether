@@ -6,7 +6,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "start": "turbo start --filter=bot"
+    "start": "turbo start --filter=bot --filter=api"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",

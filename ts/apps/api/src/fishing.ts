@@ -79,7 +79,11 @@ export const fishing = new Elysia({ prefix: "/fishing" })
   .get(
     "/getSpawnPoints",
     () => {
-      return db.query.fishingSpots.findMany();
+      return db.query.fishingSpots.findMany({
+        with: {
+          user: true,
+        },
+      });
     },
     {
       response: Type.Array(
