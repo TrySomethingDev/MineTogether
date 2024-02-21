@@ -64,6 +64,8 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
         saveDefaultConfig();
 
         var mineTogetherModeManager = new MineTogetherModeManager(this,yourMineCraftPlayerName);
+
+
         var fishTogetherModeManager = new FishTogetherModeManager(this,yourMineCraftPlayerName,APIBaseURL);
         //new EntityHandler(this);
         new DelayedTask(this);

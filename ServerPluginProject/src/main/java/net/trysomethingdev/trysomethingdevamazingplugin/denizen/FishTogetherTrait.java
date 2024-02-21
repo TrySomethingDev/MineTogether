@@ -7,6 +7,7 @@ import com.denizenscript.denizencore.utilities.CoreUtilities;
 import com.denizenscript.denizencore.utilities.debugging.Debug;
 import net.citizensnpcs.api.persistence.Persist;
 import net.citizensnpcs.api.trait.Trait;
+import net.citizensnpcs.trait.DropsTrait;
 import net.citizensnpcs.util.PlayerAnimation;
 import net.kyori.adventure.text.Component;
 import net.trysomethingdev.trysomethingdevamazingplugin.events.NpcFishEvent;
@@ -138,6 +139,7 @@ public class FishTogetherTrait extends Trait {
         fishingLocation = null;
         fishing = false;
         npc.removeTrait(FishTogetherTrait.class);
+
 
     }
 
