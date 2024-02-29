@@ -4,6 +4,7 @@ package net.trysomethingdev.trysomethingdevamazingplugin.fishtogethermode;
 import com.denizenscript.denizen.nms.interfaces.FishingHelper;
 import com.denizenscript.denizen.objects.LocationTag;
 import com.denizenscript.denizen.objects.NPCTag;
+import com.denizenscript.denizen.utilities.Utilities;
 import com.denizenscript.denizencore.objects.core.ElementTag;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -108,6 +109,7 @@ public class FishTogetherModeManager {
 
     private void AddNPCToFishingStation(InWorldFishingStation inWorldFishingStation, FishingSpot fishingSpot) {
         var world = Bukkit.getPlayer(_yourMCPlayerName).getWorld();
+        var player = Bukkit.getPlayer(_yourMCPlayerName);
         var chestLocation = new Location(world,inWorldFishingStation.locationX
                 ,inWorldFishingStation.locationY, inWorldFishingStation.locationZ);
 
@@ -121,7 +123,12 @@ public class FishTogetherModeManager {
         //We assume at this point the station is facing east.
 
         NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, npcName);
+
         npc.spawn(npcLocationWithYaw);
+
+        Bukkit.getScheduler().runTaskLater(_plugin, () -> player.performCommand("npc select " + npcName), 20);
+
+        Bukkit.getScheduler().runTaskLater(_plugin, () -> player.performCommand("npc pickupitems"), 40);
 
         LocationTag location = new LocationTag(fishingLocation);
 
@@ -130,7 +137,7 @@ public class FishTogetherModeManager {
             ElementTag percent = new ElementTag("25");
 
             NPCTag npcTag = NPCTag.fromEntity(npc.getEntity());
-
+            npcTag.getLivingEntity().setCanPickupItems(true);
             // AresNote: Created my own AresTrait to create the custom behavior
             FishTogetherTrait trait = npcTag.getCitizen().getOrAddTrait(FishTogetherTrait.class);
             if (stop.asBoolean()) {

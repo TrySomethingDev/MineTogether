@@ -61,6 +61,7 @@ public class FishTogetherCommand extends AbstractCommand {
             Debug.report(scriptEntry, getName(), location, catchtype, percent, stop);
         }
         NPCTag npc = Utilities.getEntryNPC(scriptEntry);
+        //npc.getLivingEntity().setCanPickupItems(true);
 
         // AresNote: Created my own AresTrait to create the custom behavior
         FishTogetherTrait trait = npc.getCitizen().getOrAddTrait(FishTogetherTrait.class);

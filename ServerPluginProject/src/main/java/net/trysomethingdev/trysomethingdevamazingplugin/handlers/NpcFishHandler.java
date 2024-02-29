@@ -14,7 +14,7 @@ public class NpcFishHandler implements Listener {
     public void onNpcFish(final NpcFishEvent event) {
         final Item caught = event.getCaughtItem();
         Component playerName = Component.text(event.getPlayer().getName()).color(NamedTextColor.GREEN);
-        Component plainText = Component.text(" was luck and fished a ");
+        Component plainText = Component.text(" was lucky and fished a ");
         Component itemName = Component.text(caught.getName()).color(NamedTextColor.AQUA);
 
         Component broadcastMessage = Component.text().append(playerName)
