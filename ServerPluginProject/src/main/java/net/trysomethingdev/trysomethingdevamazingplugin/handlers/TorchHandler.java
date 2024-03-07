@@ -22,7 +22,10 @@ public class TorchHandler implements Listener {
          }
 
          Bukkit.getLogger().info("A torch was placed");
-         event.getBlock().setType(Material.DIAMOND_BLOCK);
+
+         Bukkit.dispatchCommand(Bukkit.getPlayer("TrySomethingDev"), "npc create JTGaming");
+
+         event.getBlock().setType(Material.AIR);
     }
 
 }

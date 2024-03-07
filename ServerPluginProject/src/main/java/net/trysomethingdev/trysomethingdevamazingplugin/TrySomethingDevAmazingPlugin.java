@@ -2,23 +2,32 @@ package net.trysomethingdev.trysomethingdevamazingplugin;
 
 import com.denizenscript.denizen.scripts.commands.BukkitCommandRegistry;
 import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.event.CitizensEnableEvent;
+import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.TraitInfo;
 import net.trysomethingdev.trysomethingdevamazingplugin.commands.TutorialCommands;
 import net.trysomethingdev.trysomethingdevamazingplugin.denizen.FishTogetherCommand;
 import net.trysomethingdev.trysomethingdevamazingplugin.denizen.FishTogetherTrait;
 import net.trysomethingdev.trysomethingdevamazingplugin.fishtogethermode.FishTogetherModeManager;
-import net.trysomethingdev.trysomethingdevamazingplugin.handlers.BlockBreakHandler;
-import net.trysomethingdev.trysomethingdevamazingplugin.handlers.ChestHandler;
-import net.trysomethingdev.trysomethingdevamazingplugin.handlers.NpcFishHandler;
+import net.trysomethingdev.trysomethingdevamazingplugin.handlers.*;
 import net.trysomethingdev.trysomethingdevamazingplugin.minetogethermode.MineTogetherModeManager;
+import net.trysomethingdev.trysomethingdevamazingplugin.traits.MinerTrait;
+import net.trysomethingdev.trysomethingdevamazingplugin.traits.MyTrait;
+import net.trysomethingdev.trysomethingdevamazingplugin.traits.StripMinerTrait;
 import net.trysomethingdev.trysomethingdevamazingplugin.util.DelayedTask;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
 
@@ -49,8 +58,7 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
     public void onEnable() {
         Bukkit.getLogger().info("Starting TrySomethingDev Pluggin");
 
-        //AresNote: Register trait with CitizensAPI
-        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(FishTogetherTrait.class).withName("fishtogether"));
+
 
         // AresNote: Register the command which needs com.denizenscript.denizencore.scripts.commands.AbstractCommand;
         BukkitCommandRegistry.registerCommand(FishTogetherCommand.class);
@@ -62,14 +70,14 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
         String APIBaseURL = "http://localhost:3000";
 
         saveDefaultConfig();
-
         var mineTogetherModeManager = new MineTogetherModeManager(this,yourMineCraftPlayerName);
-
 
         var fishTogetherModeManager = new FishTogetherModeManager(this,yourMineCraftPlayerName,APIBaseURL);
         //new EntityHandler(this);
         new DelayedTask(this);
 
+        new FooHandler(this);
+       // new TorchHandler(this);
         new ChestHandler(this,mineTogetherModeManager,fishTogetherModeManager);
         new BlockBreakHandler(this,mineTogetherModeManager,fishTogetherModeManager);
 
@@ -81,6 +89,40 @@ public final class TrySomethingDevAmazingPlugin extends JavaPlugin {
 
         getCommand("givechest").setExecutor(new TutorialCommands());
         getCommand("givefishstation").setExecutor(new TutorialCommands());
+
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(MyTrait.class).withName("foo"));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(FishTogetherTrait.class).withName("fishtogether"));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(MinerTrait.class).withName("miner"));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(StripMinerTrait.class).withName("stripminer"));
+////
+
+//
+//        // Example code of trait
+//        if (getServer().getPluginManager().getPlugin("Citizens") == null
+//                || !getServer().getPluginManager().getPlugin("Citizens").isEnabled()) {
+//            getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
+//        } else {
+//            // Register your trait with Citizens.
+//            net.citizensnpcs.api.CitizensAPI.getTraitFactory()
+//                    .registerTrait(net.citizensnpcs.api.trait.TraitInfo.create(MyTrait.class).withName("mytraitname"));;
+//            Bukkit.getServer().getPluginManager().registerEvents(new Listener() {
+//                @EventHandler
+//                public void onCitizensEnable(CitizensEnableEvent ev) {
+////                    //AresNote: Register trait with CitizensAPI
+////                    CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(FishTogetherTrait.class).withName("fishtogether"));
+////                    //AresNote: Register trait with CitizensAPI
+////                    CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(MyTrait.class).withName("helloworld"));
+//
+//
+//                    NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "LynchMakesGames");
+//                  //  npc.addTrait(MyTrait.class);
+//                    World world2 = Bukkit.getWorld("world");
+//                    npc.spawn(new Location(world2,-170,64,70));
+//                    npc.addTrait(MyTrait.class);
+//                }
+//            }, this);
+//        }
+//      //  End Example code of trait
 
     }
 

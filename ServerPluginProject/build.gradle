@@ -65,5 +65,5 @@ processResources {
 }
 
 jar {
-    destinationDirectory = file('C:\\Files\\Servers\\PaperServerDev2\\plugins')
+    destinationDirectory = file('C:\\Files\\Servers\\PaperServerDev3\\plugins')
 } // Specify your desired output directory }
